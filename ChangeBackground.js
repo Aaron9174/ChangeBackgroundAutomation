@@ -4,19 +4,33 @@
 var app = Application.currentApplication();
 app.includeStandardAdditions = true;
 
+const backgroundDirectory = "/Users/lemi11ion/Pictures/Backgrounds";
+
 try {
-    var directory = app.displayDialog("Enter the directory of the picture you want to save.", { defaultAnswer: "/Users/lemi11ion/Pictures/Backgrounds" });
-    var path = Path(directory.textReturned);
+    // Get user provided directory
+    var path = Path(backgroundDirectory);
+
+    // User finder application to check for existance
     var finderApp = Application("Finder");
     var status = finderApp.exists(path);
-    const practice = `yeet: ${path}`;
-    const result = app.doShellScript(`osascript -e 'tell application "Finder"
-    set desktop picture to POSIX file ${path}'`); console.log(result);
     if (!status) {
         throw new Error("Directory does not exist.");
     }
 
+    // Use System Application to loop through the directory
+    var appSys = Application('System Events');
+    var lstHarvest = appSys.folders.byName(path.toString()).diskItems.name();
+
+    // Choose a random a picture
+    var randomNum = Math.round(Math.random()*(lstHarvest.length - 1));
+    var randomPicName = lstHarvest[randomNum];
+    var picPath = backgroundDirectory + "/" + randomPicName;
     
+    // Now set the background
+    var desktopRef = appSys.currentDesktop();
+    var desktopProp = desktopRef.properties();
+    desktopProp.picture = picPath.toString();
+    console.log("here:", JSON.stringify(desktopProp));
 } catch(e) {
     app.displayNotification(e.message);
     console.log(e.message);
