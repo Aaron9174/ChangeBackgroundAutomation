@@ -27,10 +27,10 @@ try {
     var picPath = backgroundDirectory + "/" + randomPicName;
     
     // Now set the background
-    var desktopRef = appSys.currentDesktop();
+    var desktopRef = appSys.currentDesktop;
     var desktopProp = desktopRef.properties();
     desktopProp.picture = picPath.toString();
-    console.log("here:", JSON.stringify(desktopProp));
+    appSys.currentDesktop.properties().picture = picPath.toString();
 } catch(e) {
     app.displayNotification(e.message);
     console.log(e.message);
