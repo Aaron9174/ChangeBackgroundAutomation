@@ -1,11 +1,11 @@
 #!/usr/bin/osascript
 
 repeat 
-    delay 45
+    delay 60
     set myTime to time string of (current date)
     set timeArray to theSplit(myTime, ":")
     set timeMinutes to item 2 in timeArray
-    if timeMinutes = "00" then
+    if timeMinutes mod 10 = 0 then
         setBackground()
     end if
 end repeat
