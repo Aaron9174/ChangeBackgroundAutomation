@@ -11,7 +11,7 @@ repeat
 end repeat
 
 on setBackground()
-    set default_dir to "/Users/lemi11ion/Pictures/Backgrounds"
+    set default_dir to "/Users/lemi11ion/Documents/Backgrounds"
     set pictureList to (list folder default_dir without invisibles)
     set listLength to length of pictureList
     set rn to (random number from 1 to listLength)
